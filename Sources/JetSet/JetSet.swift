@@ -31,21 +31,14 @@ public struct JetSet {
         sessionConfig.waitsForConnectivity = true
         let session = URLSession(configuration: sessionConfig)
         let url = URL(string:"http://ubuntu.local/kraken-jet-engine-arm/api/v1/test_get")!
-        //let url = URL(string: "https://rickandmortyapi.com/api/character/")!
         let request = URLRequest(url: url)
         // Create the HTTP request
-        //let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 // Handle HTTP request error
                 print(error)
             } else if let data = data {
-                // Handle HTTP request response
-                //print(String(data: data, encoding: .utf8)!)
-                //print(data)
-                //let json = JSON(data)
                 jsonArray.append(String(data: data, encoding: .utf8)!)
-                //print(json)
                 semaphore.signal()
             } else {
                 // Handle unexpected error
@@ -67,24 +60,14 @@ public struct JetSet {
         sessionConfig.waitsForConnectivity = true
         let session = URLSession(configuration: sessionConfig)
         let url = URL(string:"http://ubuntu.local/easyocr-jet-engine-x86/api/v1/test")!
-        //let url = URL(string: "https://rickandmortyapi.com/api/character/")!
         let request = URLRequest(url: url)
         // Create the HTTP request
-        //let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 // Handle HTTP request error
                 print(error)
             } else if let data = data {
-                // Handle HTTP request response
-                //print(String(data: data, encoding: .utf8)!)
-                //print(data)
-                //let json = JSON(data)
-                //print(json["text_list"])
-                //ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
-                //GetNetworkInfo()
                 jsonArray.append(String(data: data, encoding: .utf8)!)
-                //print(json)
                 semaphore.signal()
             } else {
                 // Handle unexpected error
@@ -135,15 +118,6 @@ public struct JetSet {
         let cpuCoreCountActive = ProcessInfo.processInfo.activeProcessorCount
         let physicalMemoryTotal = ProcessInfo.processInfo.physicalMemory
         let operatingSystemVersion = UIDevice.current.systemVersion
-        //print(ProcessInfo.processInfo.environment)
-        //print(ProcessInfo.processInfo.operatingSystemVersionString)
-        //print(UIDevice.current.identifierForVendor)
-        //print(UIDevice.current.isMultitaskingSupported)
-        //print(UIDevice.current.model)
-        //print(UIDevice.current.localizedModel)
-        //print(UIDevice.current.name)
-        //print(UIDevice.current.systemName)
-        //print(Network.ssid)
         let systemData = [
             "thermal_state": thermalState,
             "cpu_core_count_total": cpuCoreCountTotal,
@@ -207,7 +181,6 @@ public struct JetSet {
             let computeBestRank = ["local","jetengine","cloud"]
             return computeBestRank
         }
-        //print(JetSetStats)
     }
     //#############################################################################
     //#############################################################################

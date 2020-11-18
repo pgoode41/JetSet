@@ -19,7 +19,6 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        //.package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
         .package(name: "SwiftyJSON", url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
     ],
     
@@ -29,7 +28,6 @@ let package = Package(
         .target(
             name: "JetSet",
             dependencies: ["SwiftyJSON"]),
-        //.target(name: "SwiftyJSON", dependencies: ["SwiftyJSON"]),
         .testTarget(
             name: "JetSetTests",
             dependencies: ["JetSet"]),
