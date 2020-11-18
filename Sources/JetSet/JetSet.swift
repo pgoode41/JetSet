@@ -247,7 +247,7 @@ public struct JetSetRadio {
     }
     //#############################################################################
     //#############################################################################
-    public func OCR_EasyOCR_X86_Compute() -> String{
+    public static func OCR_EasyOCR_X86_Compute() -> String{
         print("This is cray")
         //ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
         //OCR_EasyOCR_X86_JetEngine_HTTPRequest()
