@@ -12,7 +12,7 @@ import Network
 public struct JetSetRadio {
     //#############################################################################
     //#############################################################################
-    let JetSetConfig = [
+    static let JetSetConfig = [
         "attempt_local": false,
         "attempt_jetengine": true,
         "attempt_cloud": true,
@@ -22,7 +22,7 @@ public struct JetSetRadio {
 
     //#############################################################################
     //#############################################################################
-    func OCR_Kraken_Arm_JetEngine_HTTPRequest() -> String {
+    static func OCR_Kraken_Arm_JetEngine_HTTPRequest() -> String {
         let sessionConfig = URLSessionConfiguration.default
         let semaphore = DispatchSemaphore (value: 0)
         var jsonArray = ["1"]
@@ -58,7 +58,7 @@ public struct JetSetRadio {
     }
     //#############################################################################
     //#############################################################################
-    func OCR_EasyOCR_X86_JetEngine_HTTPRequest() -> String {
+    static func OCR_EasyOCR_X86_JetEngine_HTTPRequest() -> String {
         let sessionConfig = URLSessionConfiguration.default
         let semaphore = DispatchSemaphore (value: 0)
         var jsonArray = ["1"]
@@ -97,7 +97,7 @@ public struct JetSetRadio {
     }
     //#############################################################################
     //#############################################################################
-    func GetNetworkInfo() -> String? {
+    static func GetNetworkInfo() -> String? {
         var ssid: String?
         if let interfaces = CNCopySupportedInterfaces() as NSArray? {
             print(interfaces)
@@ -115,7 +115,7 @@ public struct JetSetRadio {
     }
     //#############################################################################
     //#############################################################################
-    func GetBatteryStats() -> Dictionary<String, Any> {
+    static func GetBatteryStats() -> Dictionary<String, Any> {
         UIDevice.current.isBatteryMonitoringEnabled = true
         let lowPowerModeIsEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
         let batteryState = UIDevice.current.batteryState.rawValue
@@ -129,7 +129,7 @@ public struct JetSetRadio {
     }
     //#############################################################################
     //#############################################################################
-    func GetSystemStats() -> Dictionary<String, Any> {
+    static func GetSystemStats() -> Dictionary<String, Any> {
         let thermalState = ProcessInfo.processInfo.thermalState.rawValue
         let cpuCoreCountTotal = ProcessInfo.processInfo.processorCount
         let cpuCoreCountActive = ProcessInfo.processInfo.activeProcessorCount
@@ -155,7 +155,7 @@ public struct JetSetRadio {
     }
     //#############################################################################
     //#############################################################################
-    func ComputeRanker(JetsonConfig: [String: Any]) -> Array<String> {
+    static func ComputeRanker(JetsonConfig: [String: Any]) -> Array<String> {
         let JetSetStats = [
             "jetset_settings": JetSetConfig,
             "system_stats": GetSystemStats(),
@@ -211,7 +211,7 @@ public struct JetSetRadio {
     }
     //#############################################################################
     //#############################################################################
-    func ComputeSift(JetsonConfig: [String: Any], computeBestRank: [String]) -> [String]{
+    static func ComputeSift(JetsonConfig: [String: Any], computeBestRank: [String]) -> [String]{
         let attemptLocal = JetsonConfig["attempt_local"]
         let attemptJetEngine = JetsonConfig["attempt_jetengine"]
         let attemptCloud = JetsonConfig["attempt_cloud"]
@@ -249,8 +249,8 @@ public struct JetSetRadio {
     //#############################################################################
     public static func OCR_EasyOCR_X86_Compute() -> String{
         print("This is cray")
-        //ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
-        //OCR_EasyOCR_X86_JetEngine_HTTPRequest()
+        ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
+        OCR_EasyOCR_X86_JetEngine_HTTPRequest()
         return "WTF"
     }
     //#############################################################################
