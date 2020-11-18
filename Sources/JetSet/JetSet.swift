@@ -19,10 +19,9 @@ public struct JetSet {
         "jetengine_priority_over_local": true,
         "jetengine_priority_over_cloud": true
     ] as [String: Any]
-
     //#############################################################################
     //#############################################################################
-    static func OCR_Kraken_Arm_JetEngine_HTTPRequest() -> String {
+    static func ModelMicroservice_HTTPRequest(modeMicroservicelURL: String) -> String {
         let sessionConfig = URLSessionConfiguration.default
         let semaphore = DispatchSemaphore (value: 0)
         var jsonArray = ["1"]
@@ -30,36 +29,7 @@ public struct JetSet {
         sessionConfig.timeoutIntervalForResource = 120.0
         sessionConfig.waitsForConnectivity = true
         let session = URLSession(configuration: sessionConfig)
-        let url = URL(string:"http://ubuntu.local/kraken-jet-engine-arm/api/v1/test_get")!
-        let request = URLRequest(url: url)
-        // Create the HTTP request
-        let task = session.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                // Handle HTTP request error
-                print(error)
-            } else if let data = data {
-                jsonArray.append(String(data: data, encoding: .utf8)!)
-                semaphore.signal()
-            } else {
-                // Handle unexpected error
-                print("err")
-            }
-        }
-        task.resume()
-        semaphore.wait()
-        return jsonArray[1]
-    }
-    //#############################################################################
-    //#############################################################################
-    static func OCR_EasyOCR_X86_JetEngine_HTTPRequest() -> String {
-        let sessionConfig = URLSessionConfiguration.default
-        let semaphore = DispatchSemaphore (value: 0)
-        var jsonArray = ["1"]
-        sessionConfig.timeoutIntervalForRequest = 120.0
-        sessionConfig.timeoutIntervalForResource = 120.0
-        sessionConfig.waitsForConnectivity = true
-        let session = URLSession(configuration: sessionConfig)
-        let url = URL(string:"http://ubuntu.local/easyocr-jet-engine-x86/api/v1/test")!
+        let url = URL(string:modeMicroservicelURL)!
         let request = URLRequest(url: url)
         // Create the HTTP request
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -223,19 +193,34 @@ public struct JetSet {
     public static func OCR_EasyOCR_X86_Compute() -> String{
         print("This is cray")
         let finalComputeList = ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
+        let modelMicroserviceURL = "http://ubuntu.local/easyocr-jet-engine-x86/api/v1/test"
 
         for x in finalComputeList {
             if x == "local" {
-                return OCR_EasyOCR_X86_JetEngine_HTTPRequest()
+                do {
+                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                } catch {
+                    print("local Compute Attempt Failed.")
+                    print("Moving To Next Best Computing Option...")
+                }
             }
             if x == "jetengine" {
-                return OCR_EasyOCR_X86_JetEngine_HTTPRequest()
+                do {
+                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                } catch {
+                    print("jetengine Compute Attempt Failed.")
+                    print("Moving To Next Best Computing Option...")
+                }
             }
             if x == "cloud" {
-                return OCR_EasyOCR_X86_JetEngine_HTTPRequest()
+                do {
+                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                } catch {
+                    print("cloud Compute Attempt Failed.")
+                    print("Moving To Next Best Computing Option...")
+                }
             }
         }
-        
         return "WTF"
     }
     //#############################################################################
@@ -243,19 +228,33 @@ public struct JetSet {
     public static func OCR_Kraken_Arm_Compute() -> String{
         print("This is cray")
         let finalComputeList = ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
-
+        let modelMicroserviceURL = "http://ubuntu.local/kraken-jet-engine-arm/api/v1/test_get"
         for x in finalComputeList {
             if x == "local" {
-                return OCR_Kraken_Arm_JetEngine_HTTPRequest()
+                do {
+                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                } catch {
+                    print("local Compute Attempt Failed.")
+                    print("Moving To Next Best Computing Option...")
+                }
             }
             if x == "jetengine" {
-                return OCR_Kraken_Arm_JetEngine_HTTPRequest()
+                do {
+                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                } catch {
+                    print("jetengine Compute Attempt Failed.")
+                    print("Moving To Next Best Computing Option...")
+                }
             }
             if x == "cloud" {
-                return OCR_Kraken_Arm_JetEngine_HTTPRequest()
+                do {
+                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                } catch {
+                    print("cloud Compute Attempt Failed.")
+                    print("Moving To Next Best Computing Option...")
+                }
             }
         }
-        
         return "WTF"
     }
     //#############################################################################
