@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftyJSON
 import SystemConfiguration.CaptiveNetwork
 import Network
-public struct JetSet {
+public struct JetSetRadio {
     //#############################################################################
     //#############################################################################
     let JetSetConfig = [
@@ -247,9 +247,11 @@ public struct JetSet {
     }
     //#############################################################################
     //#############################################################################
-    public func OCR_EasyOCR_X86_Compute() {
-        ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
-        OCR_EasyOCR_X86_JetEngine_HTTPRequest()
+    public func OCR_EasyOCR_X86_Compute() -> String{
+        print("This is cray")
+        //ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
+        //OCR_EasyOCR_X86_JetEngine_HTTPRequest()
+        return "WTF"
     }
     //#############################################################################
     //#############################################################################
