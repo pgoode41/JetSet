@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftyJSON
 import SystemConfiguration.CaptiveNetwork
 import Network
-struct JetSet {
+public struct JetSet {
     //#############################################################################
     //#############################################################################
     let JetSetConfig = [
