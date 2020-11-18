@@ -249,8 +249,20 @@ public struct JetSetRadio {
     //#############################################################################
     public static func OCR_EasyOCR_X86_Compute() -> String{
         print("This is cray")
-        ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
-        OCR_EasyOCR_X86_JetEngine_HTTPRequest()
+        let finalComputeList = ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
+
+        for x in finalComputeList {
+            if x == "local" {
+                return OCR_EasyOCR_X86_JetEngine_HTTPRequest()
+            }
+            if x == "jetengine" {
+                return OCR_EasyOCR_X86_JetEngine_HTTPRequest()
+            }
+            if x == "cloud" {
+                return OCR_EasyOCR_X86_JetEngine_HTTPRequest()
+            }
+        }
+        
         return "WTF"
     }
     //#############################################################################
