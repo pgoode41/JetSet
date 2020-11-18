@@ -247,7 +247,7 @@ struct JetSet {
     }
     //#############################################################################
     //#############################################################################
-    func OCR_EasyOCR_X86_Compute() {
+    public func OCR_EasyOCR_X86_Compute() {
         ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
         OCR_EasyOCR_X86_JetEngine_HTTPRequest()
     }
