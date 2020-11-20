@@ -25,9 +25,9 @@ public struct JetSet {
         let sessionConfig = URLSessionConfiguration.default
         let semaphore = DispatchSemaphore (value: 0)
         var jsonArray = ["1"]
-        sessionConfig.timeoutIntervalForRequest = 120.0
-        sessionConfig.timeoutIntervalForResource = 120.0
-        sessionConfig.waitsForConnectivity = true
+        sessionConfig.timeoutIntervalForRequest = 60.0
+        sessionConfig.timeoutIntervalForResource = 60.0
+        sessionConfig.waitsForConnectivity = false
         let session = URLSession(configuration: sessionConfig)
         let url = URL(string:modeMicroservicelURL)!
         let request = URLRequest(url: url)
@@ -41,7 +41,7 @@ public struct JetSet {
                 semaphore.signal()
             } else {
                 // Handle unexpected error
-                print("err")
+                jsonArray.append("An Error Occured When Making Ai request.")
             }
         }
         task.resume()
