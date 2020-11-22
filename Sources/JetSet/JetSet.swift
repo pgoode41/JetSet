@@ -315,9 +315,9 @@ public struct JetSet {
         print("This is cray")
         let finalComputeList = ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
         let modelMicroserviceURL_JetEngine_Status = "http://ubuntu.local/kraken-jet-engine-arm/status"
-        let modelMicroserviceURL_JetEngine_Compute = "http://ubuntu.local/kraken-jet-engine-arm/api/v1/test"
+        let modelMicroserviceURL_JetEngine_Compute = "http://ubuntu.local/kraken-jet-engine-arm/api/v1/test_get"
         let modelMicroserviceURL_Cloud_Status = "http://192.168.1.247/kraken-jet-engine-x86/status"
-        let modelMicroserviceURL_Cloud_Compute = "http://192.168.1.247/kraken-jet-engine-x86/api/v1/test"
+        let modelMicroserviceURL_Cloud_Compute = "http://192.168.1.247/kraken-jet-engine-x86/api/v1/test_get"
 
         for x in finalComputeList {
             //****************************************************************
