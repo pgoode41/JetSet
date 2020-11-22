@@ -32,7 +32,7 @@ public struct JetSet {
         let url = URL(string:modeMicroservicelURL)!
         let request = URLRequest(url: url)
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = session.dataTask(with: request) { data, response, error in
             if let data = data {
                 let returnData = String(data: data, encoding: .utf8)!
                 print(returnData)
@@ -41,6 +41,7 @@ public struct JetSet {
                 return
             } else {
                 print(String(describing: error))
+                jsonArray.append("error")
                 semaphore.signal()
                 return
           }
