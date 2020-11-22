@@ -21,19 +21,50 @@ public struct JetSet {
     ] as [String: Any]
     //#############################################################################
     //#############################################################################
-    static func ModelMicroservice_HTTPRequest(modeMicroservicelURL: String) -> String {
+    static func ModelMicroservice_CheckStatus(modeMicroservicelURL: String) -> String {
         let sessionConfig = URLSessionConfiguration.default
         let semaphore = DispatchSemaphore (value: 0)
         var jsonArray = ["1"]
-        sessionConfig.timeoutIntervalForRequest = 15.0
-        sessionConfig.timeoutIntervalForResource = 15.0
+        sessionConfig.timeoutIntervalForRequest = 0.5
+        sessionConfig.timeoutIntervalForResource = 0.5
         sessionConfig.waitsForConnectivity = false
         let session = URLSession(configuration: sessionConfig)
         let url = URL(string:modeMicroservicelURL)!
         let request = URLRequest(url: url)
-        print(session.description)
-        print(session.sessionDescription)
-        print(session.debugDescription)
+        let task = session.dataTask(with: request) { data, response, error in
+            if let data = data {
+                let returnData = String(data: data, encoding: .utf8)!
+                print(returnData)
+                //jsonArray.append(String(data: data, encoding: .utf8)!)
+                jsonArray.append("available")
+                semaphore.signal()
+                return
+            } else {
+                print(String(describing: error))
+                jsonArray.append("error")
+                semaphore.signal()
+                return
+          }
+        }
+        task.resume()
+        semaphore.wait()
+        if jsonArray[1] == "error" {
+            task.cancel()
+        }
+        return jsonArray[1]
+    }
+    //#############################################################################
+    //#############################################################################
+    static func ModelMicroservice_HTTPRequest(modeMicroservicelURL: String) -> String {
+        let sessionConfig = URLSessionConfiguration.default
+        let semaphore = DispatchSemaphore (value: 0)
+        var jsonArray = ["1"]
+        sessionConfig.timeoutIntervalForRequest = 35.0
+        sessionConfig.timeoutIntervalForResource = 35.0
+        sessionConfig.waitsForConnectivity = false
+        let session = URLSession(configuration: sessionConfig)
+        let url = URL(string:modeMicroservicelURL)!
+        let request = URLRequest(url: url)
         let task = session.dataTask(with: request) { data, response, error in
             if let data = data {
                 let returnData = String(data: data, encoding: .utf8)!
@@ -47,25 +78,7 @@ public struct JetSet {
                 semaphore.signal()
                 return
           }
-            //semaphore.signal()
         }
-        /*
-        // Create the HTTP request
-        let task = session.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                // Handle HTTP request error
-                print(error)
-                jsonArray.append("error")
-            } else if let data = data {
-                jsonArray.append(String(data: data, encoding: .utf8)!)
-                semaphore.signal()
-            } else {
-                // Handle unexpected error
-                jsonArray.append("error")
-                //jsonArray.append("An Error Occured When Making Ai request.")
-            }
-        }
-        */
         task.resume()
         semaphore.wait()
         if jsonArray[1] == "error" {
@@ -218,8 +231,11 @@ public struct JetSet {
     public static func OCR_EasyOCR() -> String{
         print("This is cray")
         let finalComputeList = ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
-        let modelMicroserviceURL_JetEngine = "http://ubuntu.local/easyocr-jet-engine-x86/api/v1/test"
-        let modelMicroserviceURL_Cloud = "http://192.168.1.247/easyocr-jet-engine-x86/api/v1/test"
+        
+        let modelMicroserviceURL_JetEngine_Status = "http://ubuntu.local/easyocr-jet-engine-x86/api/v1/status"
+        let modelMicroserviceURL_JetEngine_Compute = "http://ubuntu.local/easyocr-jet-engine-x86/api/v1/test"
+        let modelMicroserviceURL_Cloud_Status = "http://192.168.1.247/easyocr-jet-engine-x86/api/v1/status"
+        let modelMicroserviceURL_Cloud_Compute = "http://192.168.1.247/easyocr-jet-engine-x86/api/v1/test"
 
         for x in finalComputeList {
             if x == "local" {
@@ -227,7 +243,12 @@ public struct JetSet {
                     print("Local Option Not Yet Enabled, Skipping...")
                     continue
                 }
-                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine)
+                
+                if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
+                    print("Resource Is not available, Skipping...")
+                }
+                
+                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
                 } else {
@@ -240,7 +261,13 @@ public struct JetSet {
                     print("JetEngine Option Not Yet Enabled, Skipping...")
                     continue
                 }
-                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine)
+                
+                if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
+                    print("Resource Is not available, Skipping...")
+                }
+                
+                
+                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
                 } else {
@@ -253,7 +280,13 @@ public struct JetSet {
                     print("Cloud Option Not Yet Enabled, Skipping...")
                     continue
                 }
-                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud)
+                
+                if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
+                    print("Resource Is not available, Skipping...")
+                }
+                
+                
+                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
                 } else {
