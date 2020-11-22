@@ -221,29 +221,41 @@ public struct JetSet {
 
         for x in finalComputeList {
             if x == "local" {
-                do {
-                    print("Local Option Not Yet Enabled.")
-                    //return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine)
-                } catch {
+                if (JetSetConfig["attempt_local"] != nil) == false {
+                    print("Local Option Not Yet Enabled, Skipping...")
+                    continue
+                }
+                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine)
+                if computeAttempt != "error" {
+                    return computeAttempt
+                } else {
                     print("local Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
                 }
             }
             if x == "jetengine" {
-                do {
-                    
-                    try print(ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine))
-                } catch {
-                    print("jetengine Compute Attempt Failed.")
+                if (JetSetConfig["attempt_jetengine"] != nil) == false {
+                    print("JetEngine Option Not Yet Enabled, Skipping...")
+                    continue
+                }
+                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine)
+                if computeAttempt != "error" {
+                    return computeAttempt
+                } else {
+                    print("JetEngine Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
                 }
             }
             if x == "cloud" {
-                do {
-                    let returnData = try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud)
-                    return returnData
-                } catch {
-                    print("cloud Compute Attempt Failed.")
+                if (JetSetConfig["attempt_cloud"] != nil) == false {
+                    print("Cloud Option Not Yet Enabled, Skipping...")
+                    continue
+                }
+                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud)
+                if computeAttempt != "error" {
+                    return computeAttempt
+                } else {
+                    print("Cloud Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
                 }
             }
