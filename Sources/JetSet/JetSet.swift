@@ -248,6 +248,7 @@ public struct JetSet {
                 //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
                     print("Resource Is not available, Skipping...")
+                    continue
                 }
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
@@ -270,6 +271,7 @@ public struct JetSet {
                 //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
                     print("Resource Is not available, Skipping...")
+                    continue
                 }
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
@@ -291,6 +293,7 @@ public struct JetSet {
                 //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_Cloud_Status) != "available" {
                     print("Resource Is not available, Skipping...")
+                    continue
                 }
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
