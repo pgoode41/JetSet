@@ -26,12 +26,14 @@ public struct JetSet {
         let semaphore = DispatchSemaphore (value: 0)
         var jsonArray = ["1"]
         sessionConfig.timeoutIntervalForRequest = 15.0
-        sessionConfig.timeoutIntervalForResource = 1.0
+        sessionConfig.timeoutIntervalForResource = 15.0
         sessionConfig.waitsForConnectivity = false
         let session = URLSession(configuration: sessionConfig)
         let url = URL(string:modeMicroservicelURL)!
         let request = URLRequest(url: url)
-        
+        print(session.description)
+        print(session.sessionDescription)
+        print(session.debugDescription)
         let task = session.dataTask(with: request) { data, response, error in
             if let data = data {
                 let returnData = String(data: data, encoding: .utf8)!
