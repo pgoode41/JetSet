@@ -26,7 +26,7 @@ public struct JetSet {
         let semaphore = DispatchSemaphore (value: 0)
         var jsonArray = ["1"]
         sessionConfig.timeoutIntervalForRequest = 60.0
-        sessionConfig.timeoutIntervalForResource = 60.0
+        sessionConfig.timeoutIntervalForResource = 10.0
         sessionConfig.waitsForConnectivity = false
         let session = URLSession(configuration: sessionConfig)
         let url = URL(string:modeMicroservicelURL)!
