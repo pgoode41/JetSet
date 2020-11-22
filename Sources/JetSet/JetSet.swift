@@ -190,15 +190,17 @@ public struct JetSet {
     }
     //#############################################################################
     //#############################################################################
-    public static func OCR_EasyOCR_X86_Compute() -> String{
+    public static func OCR_EasyOCR() -> String{
         print("This is cray")
         let finalComputeList = ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
-        let modelMicroserviceURL = "http://ubuntu.local/easyocr-jet-engine-x86/api/v1/test"
+        let modelMicroserviceURL_JetEngine = "http://ubuntu.local/easyocr-jet-engine-x86/api/v1/test"
+        let modelMicroserviceURL_Cloud = "http://192.168.1.247/easyocr-jet-engine-x86/api/v1/test"
 
         for x in finalComputeList {
             if x == "local" {
                 do {
-                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                    print("Local Option Not Yet Enabled.")
+                    //return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine)
                 } catch {
                     print("local Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
@@ -206,7 +208,7 @@ public struct JetSet {
             }
             if x == "jetengine" {
                 do {
-                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine)
                 } catch {
                     print("jetengine Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
@@ -214,7 +216,8 @@ public struct JetSet {
             }
             if x == "cloud" {
                 do {
-                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                    let returnData = try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud)
+                    return returnData
                 } catch {
                     print("cloud Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
@@ -228,11 +231,14 @@ public struct JetSet {
     public static func OCR_Kraken_Arm_Compute() -> String{
         print("This is cray")
         let finalComputeList = ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
-        let modelMicroserviceURL = "http://ubuntu.local/kraken-jet-engine-arm/api/v1/test_get"
+        let modelMicroserviceURL_JetEngine = "http://ubuntu.local/kraken-jet-engine-arm/api/v1/test_get"
+        let modelMicroserviceURL_Cloud = "http://192.168.1.247/kraken-jet-engine-x86/api/v1/test_get"
+
         for x in finalComputeList {
             if x == "local" {
                 do {
-                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                    print("Local Option Not Yet Enabled.")
+                    //return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
                 } catch {
                     print("local Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
@@ -240,7 +246,7 @@ public struct JetSet {
             }
             if x == "jetengine" {
                 do {
-                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine)
                 } catch {
                     print("jetengine Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
@@ -248,7 +254,7 @@ public struct JetSet {
             }
             if x == "cloud" {
                 do {
-                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
+                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud)
                 } catch {
                     print("cloud Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
