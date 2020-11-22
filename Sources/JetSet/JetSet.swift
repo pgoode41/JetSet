@@ -36,13 +36,13 @@ public struct JetSet {
             if let error = error {
                 // Handle HTTP request error
                 print(error)
-                fatalError()
+                jsonArray.append("error")
             } else if let data = data {
                 jsonArray.append(String(data: data, encoding: .utf8)!)
                 semaphore.signal()
             } else {
                 // Handle unexpected error
-                fatalError()
+                jsonArray.append("error")
                 //jsonArray.append("An Error Occured When Making Ai request.")
             }
         }
