@@ -320,16 +320,20 @@ public struct JetSet {
         let modelMicroserviceURL_Cloud_Compute = "http://192.168.1.247/kraken-jet-engine-x86/api/v1/test"
 
         for x in finalComputeList {
+            //****************************************************************
+            //****************************************************************
             if x == "local" {
+                //****************************************************************
                 if (JetSetConfig["attempt_local"] != nil) == false {
                     print("Local Option Not Yet Enabled, Skipping...")
                     continue
                 }
-                
+                //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
                     print("Resource Is not available, Skipping...")
+                    continue
                 }
-                
+                //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
@@ -337,18 +341,22 @@ public struct JetSet {
                     print("local Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
                 }
+                //****************************************************************
             }
+            //****************************************************************
+            //****************************************************************
             if x == "jetengine" {
+                //****************************************************************
                 if (JetSetConfig["attempt_jetengine"] != nil) == false {
                     print("JetEngine Option Not Yet Enabled, Skipping...")
                     continue
                 }
-                
+                //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
                     print("Resource Is not available, Skipping...")
+                    continue
                 }
-                
-                
+                //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
@@ -357,17 +365,20 @@ public struct JetSet {
                     print("Moving To Next Best Computing Option...")
                 }
             }
+            //****************************************************************
+            //****************************************************************
             if x == "cloud" {
+                //****************************************************************
                 if (JetSetConfig["attempt_cloud"] != nil) == false {
                     print("Cloud Option Not Yet Enabled, Skipping...")
                     continue
                 }
-                
+                //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_Cloud_Status) != "available" {
                     print("Resource Is not available, Skipping...")
+                    continue
                 }
-                
-                
+                //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
@@ -376,6 +387,8 @@ public struct JetSet {
                     print("Moving To Next Best Computing Option...")
                 }
             }
+            //****************************************************************
+            //****************************************************************
         }
         return "WTF"
     }
