@@ -210,7 +210,8 @@ public struct JetSet {
             }
             if x == "jetengine" {
                 do {
-                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine)
+                    
+                    try print(ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine))
                 } catch {
                     print("jetengine Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
