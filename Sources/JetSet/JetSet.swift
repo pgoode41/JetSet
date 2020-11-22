@@ -46,8 +46,17 @@ public struct JetSet {
                 //jsonArray.append("An Error Occured When Making Ai request.")
             }
         }
+        if jsonArray[1] == "error" {
+            task.cancel()
+        }
         task.resume()
+        if jsonArray[1] == "error" {
+            task.cancel()
+        }
         semaphore.wait()
+        if jsonArray[1] == "error" {
+            task.cancel()
+        }
         return jsonArray[1]
     }
     //#############################################################################
