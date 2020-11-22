@@ -47,9 +47,6 @@ public struct JetSet {
             }
         }
         task.resume()
-        if jsonArray[1] == "error" {
-            task.cancel()
-        }
         semaphore.wait()
         if jsonArray[1] == "error" {
             task.cancel()
