@@ -281,7 +281,7 @@ public struct JetSet {
                     continue
                 }
                 
-                if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
+                if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_Cloud_Status) != "available" {
                     print("Resource Is not available, Skipping...")
                 }
                 
@@ -299,35 +299,68 @@ public struct JetSet {
     }
     //#############################################################################
     //#############################################################################
-    public static func OCR_Kraken_Arm_Compute() -> String{
+    public static func OCR_Kraken() -> String{
         print("This is cray")
         let finalComputeList = ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
-        let modelMicroserviceURL_JetEngine = "http://ubuntu.local/kraken-jet-engine-arm/api/v1/test_get"
-        let modelMicroserviceURL_Cloud = "http://192.168.1.247/kraken-jet-engine-x86/api/v1/test_get"
+        let modelMicroserviceURL_JetEngine_Status = "http://ubuntu.local/easyocr-jet-engine-x86/api/v1/status"
+        let modelMicroserviceURL_JetEngine_Compute = "http://ubuntu.local/easyocr-jet-engine-x86/api/v1/test"
+        let modelMicroserviceURL_Cloud_Status = "http://192.168.1.247/easyocr-jet-engine-x86/api/v1/status"
+        let modelMicroserviceURL_Cloud_Compute = "http://192.168.1.247/easyocr-jet-engine-x86/api/v1/test"
 
         for x in finalComputeList {
             if x == "local" {
-                do {
-                    print("Local Option Not Yet Enabled.")
-                    //return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL)
-                } catch {
+                if (JetSetConfig["attempt_local"] != nil) == false {
+                    print("Local Option Not Yet Enabled, Skipping...")
+                    continue
+                }
+                
+                if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
+                    print("Resource Is not available, Skipping...")
+                }
+                
+                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
+                if computeAttempt != "error" {
+                    return computeAttempt
+                } else {
                     print("local Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
                 }
             }
             if x == "jetengine" {
-                do {
-                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine)
-                } catch {
-                    print("jetengine Compute Attempt Failed.")
+                if (JetSetConfig["attempt_jetengine"] != nil) == false {
+                    print("JetEngine Option Not Yet Enabled, Skipping...")
+                    continue
+                }
+                
+                if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
+                    print("Resource Is not available, Skipping...")
+                }
+                
+                
+                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
+                if computeAttempt != "error" {
+                    return computeAttempt
+                } else {
+                    print("JetEngine Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
                 }
             }
             if x == "cloud" {
-                do {
-                    return try ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud)
-                } catch {
-                    print("cloud Compute Attempt Failed.")
+                if (JetSetConfig["attempt_cloud"] != nil) == false {
+                    print("Cloud Option Not Yet Enabled, Skipping...")
+                    continue
+                }
+                
+                if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_Cloud_Status) != "available" {
+                    print("Resource Is not available, Skipping...")
+                }
+                
+                
+                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
+                if computeAttempt != "error" {
+                    return computeAttempt
+                } else {
+                    print("Cloud Compute Attempt Failed.")
                     print("Moving To Next Best Computing Option...")
                 }
             }
