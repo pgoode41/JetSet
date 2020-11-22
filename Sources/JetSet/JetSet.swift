@@ -31,6 +31,22 @@ public struct JetSet {
         let session = URLSession(configuration: sessionConfig)
         let url = URL(string:modeMicroservicelURL)!
         let request = URLRequest(url: url)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                let returnData = String(data: data, encoding: .utf8)!
+                print(returnData)
+                jsonArray.append(String(data: data, encoding: .utf8)!)
+                semaphore.signal()
+                return
+            } else {
+                print(String(describing: error))
+                semaphore.signal()
+                return
+          }
+            //semaphore.signal()
+        }
+        /*
         // Create the HTTP request
         let task = session.dataTask(with: request) { (data, response, error) in
             if let error = error {
@@ -46,6 +62,7 @@ public struct JetSet {
                 //jsonArray.append("An Error Occured When Making Ai request.")
             }
         }
+        */
         task.resume()
         semaphore.wait()
         if jsonArray[1] == "error" {
