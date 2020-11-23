@@ -182,10 +182,17 @@ public struct JetSet {
         //****************************************************************
         if  computeRankReasons.count > 0 {
             let computeBestRank = ["jetengine","cloud","local"]
+            print("JetSetLog:"+"Compute Rank Order is running in an altered configuration")
+            print("JetSetLog:"+"This means that the local device DID show reason(s) to deprioritize local compute.")
+            print("JetSetLog:"+"Determined Best Compute Rank Order: JetEngine > Cloud > Local")
+            print("JetSetLog:"+"The compute rank alteration reason(s) are in the next print statement.")
             print(computeRankReasons)
             return computeBestRank
         } else {
             let computeBestRank = ["local","jetengine","cloud"]
+            print("JetSetLog:"+"Compute Rank Order is running at the default configuration")
+            print("JetSetLog:"+"This means that the local device doesn't show any reasons to deprioritize local compute.")
+            print("JetSetLog:"+"Determined Best Compute Rank Order: Local > JetEngine > Cloud")
             return computeBestRank
         }
     }
