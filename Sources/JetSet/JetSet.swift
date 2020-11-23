@@ -200,16 +200,19 @@ public struct JetSet {
         //****************************************************************
         //****************************************************************
         if attemptLocal as! Bool == false {
+            print("JetSetLog:"+"Local compute has been disabled in the JetSet config, and no attempt will be made on this resource.")
             computeSiftArray.append("local")
         }
         //****************************************************************
         //****************************************************************
         if attemptJetEngine as! Bool == false {
+            print("JetSetLog:"+"JetEngine compute has been disabled in the JetSet config, and no attempt will be made on this resource.")
             computeSiftArray.append("jetengine")
         }
         //****************************************************************
         //****************************************************************
         if attemptCloud as! Bool == false {
+            print("JetSetLog:"+"Cloud compute has been disabled in the JetSet config, and no attempt will be made on this resource.")
             computeSiftArray.append("cloud")
         }
         //****************************************************************
