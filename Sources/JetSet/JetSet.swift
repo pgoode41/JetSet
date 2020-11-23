@@ -300,7 +300,7 @@ public struct JetSet {
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
                 if computeAttempt != "error" {
-                    print("JetSetLog:"+"Successfully Computed on Local")
+                    print("JetSetLog:"+"Successfully Computed on Cloud")
                     return computeAttempt
                 } else {
                     print("JetSetLog:"+"Cloud Compute Attempt Failed.")
@@ -386,7 +386,7 @@ public struct JetSet {
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
                 if computeAttempt != "error" {
-                    print("JetSetLog:"+"Successfully Computed on Local")
+                    print("JetSetLog:"+"Successfully Computed on Cloud")
                     return computeAttempt
                 } else {
                     print("JetSetLog:"+"Cloud Compute Attempt Failed.")
