@@ -54,7 +54,7 @@ public struct JetSet {
     }
     //#############################################################################
     //#############################################################################
-    static func ModelMicroservice_HTTPRequest(modeMicroservicelURL: String) -> String {
+    static func ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: String) -> String {
         let sessionConfig = URLSessionConfiguration.default
         let semaphore = DispatchSemaphore (value: 0)
         var jsonArray = ["1"]
@@ -227,14 +227,14 @@ public struct JetSet {
     }
     //#############################################################################
     //#############################################################################
-    public static func OCR_EasyOCR() -> String{
+    public static func OCR_Demo_EasyOCR() -> String{
         print("This is cray")
         let finalComputeList = ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
         
         let modelMicroserviceURL_JetEngine_Status = "http://ubuntu.local/easyocr-jet-engine-x86/status"
         let modelMicroserviceURL_JetEngine_Compute = "http://ubuntu.local/easyocr-jet-engine-x86/api/v1/test"
-        let modelMicroserviceURL_Cloud_Status = "http://192.168.1.247/easyocr-jet-engine-x86/status"
-        let modelMicroserviceURL_Cloud_Compute = "http://192.168.1.247/easyocr-jet-engine-x86/api/v1/test"
+        let modelMicroserviceURL_Cloud_Status = "http://mesharound.com/easyocr-jet-engine-x86/status"
+        let modelMicroserviceURL_Cloud_Compute = "http://mesharound.com/easyocr-jet-engine-x86/api/v1/test"
 
         for x in finalComputeList {
             //****************************************************************
@@ -251,7 +251,7 @@ public struct JetSet {
                     continue
                 }
                 //****************************************************************
-                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
+                let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
                 } else {
@@ -274,7 +274,7 @@ public struct JetSet {
                     continue
                 }
                 //****************************************************************
-                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
+                let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
                 } else {
@@ -296,7 +296,7 @@ public struct JetSet {
                     continue
                 }
                 //****************************************************************
-                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
+                let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
                 } else {
@@ -311,13 +311,13 @@ public struct JetSet {
     }
     //#############################################################################
     //#############################################################################
-    public static func OCR_Kraken() -> String{
+    public static func OCR_Demo_Kraken() -> String{
         print("This is cray")
         let finalComputeList = ComputeSift(JetsonConfig: JetSetConfig, computeBestRank: ComputeRanker(JetsonConfig: JetSetConfig))
         let modelMicroserviceURL_JetEngine_Status = "http://ubuntu.local/kraken-jet-engine-arm/status"
-        let modelMicroserviceURL_JetEngine_Compute = "http://ubuntu.local/kraken-jet-engine-arm/api/v1/test_get"
-        let modelMicroserviceURL_Cloud_Status = "http://192.168.1.247/kraken-jet-engine-x86/status"
-        let modelMicroserviceURL_Cloud_Compute = "http://192.168.1.247/kraken-jet-engine-x86/api/v1/test_get"
+        let modelMicroserviceURL_JetEngine_Compute = "http://ubuntu.local/kraken-jet-engine-arm/api/v1/test"
+        let modelMicroserviceURL_Cloud_Status = "http://mesharound.com/kraken-jet-engine-x86/status"
+        let modelMicroserviceURL_Cloud_Compute = "http://mesharound.com/kraken-jet-engine-x86/api/v1/test"
 
         for x in finalComputeList {
             //****************************************************************
@@ -334,7 +334,7 @@ public struct JetSet {
                     continue
                 }
                 //****************************************************************
-                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
+                let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
                 } else {
@@ -357,7 +357,7 @@ public struct JetSet {
                     continue
                 }
                 //****************************************************************
-                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
+                let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
                 } else {
@@ -379,7 +379,7 @@ public struct JetSet {
                     continue
                 }
                 //****************************************************************
-                let computeAttempt = ModelMicroservice_HTTPRequest(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
+                let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
                 if computeAttempt != "error" {
                     return computeAttempt
                 } else {
