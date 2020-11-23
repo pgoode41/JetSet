@@ -182,17 +182,25 @@ public struct JetSet {
         //****************************************************************
         if  computeRankReasons.count > 0 {
             let computeBestRank = ["jetengine","cloud","local"]
+            print("JetSetLog:"+"#######################################################################################")
             print("JetSetLog:"+"Compute Rank Order is running in an altered configuration")
             print("JetSetLog:"+"This means that the local device DID show reason(s) to deprioritize local compute.")
             print("JetSetLog:"+"Determined Best Compute Rank Order: JetEngine > Cloud > Local")
             print("JetSetLog:"+"The compute rank alteration reason(s) are in the next print statement.")
+            for x in computeRankReasons {
+                print("JetSetLog:"+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                print("JetSetLog:"+"Compute Rank Altertation Reason:"+x)
+            }
+            print("JetSetLog:"+"#######################################################################################")
             print(computeRankReasons)
             return computeBestRank
         } else {
+            print("JetSetLog:"+"#######################################################################################")
             let computeBestRank = ["local","jetengine","cloud"]
             print("JetSetLog:"+"Compute Rank Order is running at the default configuration")
             print("JetSetLog:"+"This means that the local device doesn't show any reasons to deprioritize local compute.")
             print("JetSetLog:"+"Determined Best Compute Rank Order: Local > JetEngine > Cloud")
+            print("JetSetLog:"+"#######################################################################################")
             return computeBestRank
         }
     }
@@ -207,18 +215,21 @@ public struct JetSet {
         //****************************************************************
         //****************************************************************
         if attemptLocal as! Bool == false {
+            print("JetSetLog:"+"#######################################################################################")
             print("JetSetLog:"+"Local compute has been disabled in the JetSet config, and no attempt will be made on this resource.")
             computeSiftArray.append("local")
         }
         //****************************************************************
         //****************************************************************
         if attemptJetEngine as! Bool == false {
+            print("JetSetLog:"+"#######################################################################################")
             print("JetSetLog:"+"JetEngine compute has been disabled in the JetSet config, and no attempt will be made on this resource.")
             computeSiftArray.append("jetengine")
         }
         //****************************************************************
         //****************************************************************
         if attemptCloud as! Bool == false {
+            print("JetSetLog:"+"#######################################################################################")
             print("JetSetLog:"+"Cloud compute has been disabled in the JetSet config, and no attempt will be made on this resource.")
             computeSiftArray.append("cloud")
         }
@@ -252,20 +263,24 @@ public struct JetSet {
             if x == "local" {
                 //****************************************************************
                 if (JetSetConfig["attempt_local"] != nil) == false {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Local Option Not Yet Enabled, Skipping...")
                     continue
                 }
                 //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Local Resource Is not available, Skipping...")
                     continue
                 }
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Successfully Computed on Local")
                     return computeAttempt
                 } else {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"local Compute Attempt Failed.")
                     print("JetSetLog:"+"Moving To Next Best Computing Option...")
                 }
@@ -276,20 +291,24 @@ public struct JetSet {
             if x == "jetengine" {
                 //****************************************************************
                 if (JetSetConfig["attempt_jetengine"] != nil) == false {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"JetEngine Option Not Yet Enabled, Skipping...")
                     continue
                 }
                 //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"JetEngine Resource Is not available, Skipping...")
                     continue
                 }
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Successfully Computed on JetEngine")
                     return computeAttempt
                 } else {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"JetEngine Compute Attempt Failed.")
                     print("JetSetLog:"+"Moving To Next Best Computing Option...")
                 }
@@ -299,20 +318,24 @@ public struct JetSet {
             if x == "cloud" {
                 //****************************************************************
                 if (JetSetConfig["attempt_cloud"] != nil) == false {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Cloud Option Not Yet Enabled, Skipping...")
                     continue
                 }
                 //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_Cloud_Status) != "available" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Cloud Resource Is not available, Skipping...")
                     continue
                 }
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
                 if computeAttempt != "error" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Successfully Computed on Cloud")
                     return computeAttempt
                 } else {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Cloud Compute Attempt Failed.")
                     print("JetSetLog:"+"Moving To Next Best Computing Option...")
                 }
@@ -338,20 +361,24 @@ public struct JetSet {
             if x == "local" {
                 //****************************************************************
                 if (JetSetConfig["attempt_local"] != nil) == false {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Local Option Not Yet Enabled, Skipping...")
                     continue
                 }
                 //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Local Resource Is not available, Skipping...")
                     continue
                 }
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Successfully Computed on Local")
                     return computeAttempt
                 } else {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"local Compute Attempt Failed.")
                     print("JetSetLog:"+"Moving To Next Best Computing Option...")
                 }
@@ -362,20 +389,24 @@ public struct JetSet {
             if x == "jetengine" {
                 //****************************************************************
                 if (JetSetConfig["attempt_jetengine"] != nil) == false {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"JetEngine Option Not Yet Enabled, Skipping...")
                     continue
                 }
                 //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Status) != "available" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"JetEngine Resource Is not available, Skipping...")
                     continue
                 }
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_JetEngine_Compute)
                 if computeAttempt != "error" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Successfully Computed on JetEngine")
                     return computeAttempt
                 } else {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"JetEngine Compute Attempt Failed.")
                     print("JetSetLog:"+"Moving To Next Best Computing Option...")
                 }
@@ -385,20 +416,24 @@ public struct JetSet {
             if x == "cloud" {
                 //****************************************************************
                 if (JetSetConfig["attempt_cloud"] != nil) == false {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Cloud Option Not Yet Enabled, Skipping...")
                     continue
                 }
                 //****************************************************************
                 if ModelMicroservice_CheckStatus(modeMicroservicelURL: modelMicroserviceURL_Cloud_Status) != "available" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Cloud Resource Is not available, Skipping...")
                     continue
                 }
                 //****************************************************************
                 let computeAttempt = ModelMicroservice_HTTPRequest_GET(modeMicroservicelURL: modelMicroserviceURL_Cloud_Compute)
                 if computeAttempt != "error" {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Successfully Computed on Cloud")
                     return computeAttempt
                 } else {
+                    print("JetSetLog:"+"#######################################################################################")
                     print("JetSetLog:"+"Cloud Compute Attempt Failed.")
                     print("JetSetLog:"+"Moving To Next Best Computing Option...")
                 }
